@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-namespace BlueGravity.Editor
+namespace Drafts.Editor
 {
     /// <summary>
     /// Whapper to UnityEditor.SearchProvider api

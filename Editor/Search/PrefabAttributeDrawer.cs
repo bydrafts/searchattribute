@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEditor;
 
-namespace BlueGravity.Editor
+namespace Drafts.Editor
 {
     [CustomPropertyDrawer(typeof(PrefabAttribute), true)]
     public class PrefabAttributeDrawer : PropertyDrawer

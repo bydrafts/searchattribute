@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace BlueGravity
+namespace Drafts
 {
     public class PrefabSearchSettings : ISearchSettings<Component>
     {

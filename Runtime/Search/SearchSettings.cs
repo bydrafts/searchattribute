@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BlueGravity
+namespace Drafts
 {
     public class SearchSettings<T> : ISearchSettings<T>
     {

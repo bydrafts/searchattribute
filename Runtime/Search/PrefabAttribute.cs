@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BlueGravity
+namespace Drafts
 {
     public class PrefabAttribute : PropertyAttribute
     {

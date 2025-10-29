@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UObj = UnityEngine.Object;
 
-namespace BlueGravity
+namespace Drafts
 {
     public class AssetSearchSettings : ISearchSettings<UObj>
     {

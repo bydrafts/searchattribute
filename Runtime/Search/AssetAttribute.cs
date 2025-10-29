@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace BlueGravity {
+namespace Drafts {
 	public class AssetAttribute : PropertyAttribute {
 		public Type Type { get; }
 		public string Folder { get; }

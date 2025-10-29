@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 using Object = UnityEngine.Object;
 
-namespace BlueGravity.Editor
+namespace Drafts.Editor
 {
     [CustomPropertyDrawer(typeof(AssetAttribute), true)]
     public class AssetAttributeDrawer : PropertyDrawer

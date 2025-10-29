@@ -3,7 +3,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace BlueGravity.Editor {
+namespace Drafts.Editor {
 	public static class SearchWindowHelper {
 
 		public static void OpenWindow<T>(this T provider, VisualElement anchor = null) where T : ScriptableObject, ISearchWindowProvider {

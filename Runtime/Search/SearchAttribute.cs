@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BlueGravity {
+namespace Drafts {
 	public abstract class SearchAttribute : PropertyAttribute {
 		public virtual ISearchSettings Settings { get; }
 		public bool Lock { get; }
