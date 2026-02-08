@@ -34,6 +34,9 @@ namespace Drafts.Editor
             rect.x += EditorGUIUtility.labelWidth;
             DrawButton(rect, property, new(currType?.Name), fieldType);
 
+            if (fieldInfo.FieldType.IsArray && currType != null)
+                label.text = currType.Name;
+            
             if (currType == null) EditorGUI.LabelField(position, label);
             else EditorGUI.PropertyField(position, property, label, true);
 
@@ -49,9 +52,9 @@ namespace Drafts.Editor
                 settings.Search(tgt, SetValue);
             }
 
-            void SetValue(Type obj)
+            void SetValue(Type type)
             {
-                property.managedReferenceValue = Activator.CreateInstance((Type)obj);
+                property.managedReferenceValue = Activator.CreateInstance((Type)type);
                 property.serializedObject.ApplyModifiedProperties();
             }
         }
