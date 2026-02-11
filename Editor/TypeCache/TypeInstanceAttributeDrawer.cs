@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System;
+using System.Collections.Generic;
 
 namespace Drafts.Editor
 {
@@ -18,7 +19,10 @@ namespace Drafts.Editor
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            var fieldType = fieldInfo.FieldType.IsArray ? fieldInfo.FieldType.GetElementType() : fieldInfo.FieldType;
+            var fieldType = fieldInfo.FieldType;
+            if (fieldType.IsArray) fieldType = fieldType.GetElementType();
+            else if (fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(List<>))
+                fieldType = fieldType.GetGenericArguments()[0];
         
             if (property.propertyType != SerializedPropertyType.ManagedReference)
                 throw new Exception("Field is not a ManagedReference");
