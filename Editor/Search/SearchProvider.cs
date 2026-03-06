@@ -45,7 +45,7 @@ namespace Drafts.Editor
             var list = new List<SearchTreeEntry>();
             list.AddGroup(settings.Title, 0);
 
-            foreach (var asset in settings.GetItens(target))
+            foreach (var asset in settings.GetItems(target))
                 list.AddEntry(settings.GetName(asset), 1, asset);
 
             return list;

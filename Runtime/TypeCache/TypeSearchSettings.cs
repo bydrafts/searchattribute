@@ -5,7 +5,7 @@ namespace Drafts
 {
     public class TypeSearchSettings : ISearchSettings<Type>
     {
-        private Type _baseType;
+        private readonly Type _baseType;
         public string Title { get; }
 
         public TypeSearchSettings(Type baseType)
@@ -14,7 +14,7 @@ namespace Drafts
             Title = "Derived from " + baseType.Name;
         }
 
-        public IEnumerable<Type> GetItens(object _) => TypeCache.GetDerivedTypes(_baseType).Types;
+        public IEnumerable<Type> GetItems(object _) => TypeCache.GetDerivedTypes(_baseType).Types;
         public string GetName(Type obj) => obj.Name;
     }
 }

@@ -12,7 +12,7 @@ namespace Drafts
         public Type Type { get; }
         public string Folder { get; }
         public string Title => $"{Type.Name} in {Folder}";
-        public IEnumerable<UObj> GetItens(object target) => _findAssets(Type, Folder);
+        public IEnumerable<UObj> GetItems(object target) => _findAssets(Type, Folder);
         public string GetName(UObj o) => o?.name;
 
         public AssetSearchSettings(Type type, string folder)
@@ -29,7 +29,7 @@ namespace Drafts
         public Type Type { get; }
         public string Folder { get; }
         public string Title => $"{Type.Name} in {Folder}";
-        public IEnumerable<string> GetItens(object target) => _findAssets(Type, Folder).Select(a => a.name);
+        public IEnumerable<string> GetItems(object target) => _findAssets(Type, Folder).Select(a => a.name);
         public string GetName(string o) => o;
 
         public AssetNameSearchSettings(Type type, string folder)

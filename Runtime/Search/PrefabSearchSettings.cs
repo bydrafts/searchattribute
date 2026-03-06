@@ -13,7 +13,7 @@ namespace Drafts
 
         private readonly Func<Component, bool> _validate;
 
-        public IEnumerable<Component> GetItens(object target) => GetPrefabs(Type, Folder, _validate);
+        public IEnumerable<Component> GetItems(object target) => GetPrefabs(Type, Folder, _validate);
         public string GetName(Component o) => o?.name;
 
         public PrefabSearchSettings(Type type, string folder, Func<Component, bool> validate = null)
@@ -36,7 +36,7 @@ namespace Drafts
 
         private readonly Func<Component, bool> _validate;
 
-        public IEnumerable<string> GetItens(object target)
+        public IEnumerable<string> GetItems(object target)
             => PrefabSearchSettings.GetPrefabs(Type, Folder, _validate).Select(c => c.name);
 
         public string GetName(string o) => o;
