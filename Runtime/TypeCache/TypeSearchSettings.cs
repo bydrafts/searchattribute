@@ -14,7 +14,7 @@ namespace Drafts
             Title = "Derived from " + baseType.Name;
         }
 
-        public IEnumerable<Type> GetItems(object _) => TypeCache.GetDerivedTypes(_baseType).Types;
+        public IEnumerable<Type> GetItems(object _) => TypeCache.GetDerivedTypes(_baseType);
         public string GetName(Type obj) => obj.Name;
     }
 }

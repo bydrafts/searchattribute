@@ -23,11 +23,10 @@ namespace Drafts.Editor
             EditorGUI.BeginDisabledGroup(@lock);
             EditorGUI.PropertyField(labelRect, property, label);
             EditorGUI.EndDisabledGroup();
-            if (GUI.Button(position, "Find"))
-            {
-                var target = property.serializedObject.targetObject;
-                SearchProvider.Create(getSettings(), target, property.SetValue).OpenWindow();
-            }
+
+            if (!GUI.Button(position, "Find")) return;
+            var target = property.serializedObject.targetObject;
+            SearchProvider.Create(getSettings(), target, property.SetValue).OpenWindow();
         }
     }
 }

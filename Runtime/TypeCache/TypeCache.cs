@@ -7,11 +7,6 @@ namespace Drafts
 {
     public class HideFromTypeCacheAttribute : Attribute { }
 
-    public class TypeNotFoundExeption : Exception
-    {
-        public TypeNotFoundExeption(Type type, string name) : base($"TypeCache<{type?.Name}>: {name} not found.") { }
-    }
-
     /// <summary>
     /// Cache subtypes for faster reflection calls
     /// </summary>
@@ -19,7 +14,7 @@ namespace Drafts
     {
         private static IEnumerable<Assembly> _assemblies = AppDomain.CurrentDomain.GetAssemblies();
         private static IReadOnlyList<Type> _foundTypes;
-        private static Dictionary<Type, TypesGroup> _cache = new();
+        private static Dictionary<Type, IReadOnlyList<Type>> _cache = new();
 
         public static IReadOnlyList<Type> FoundTypes => _foundTypes ??= FindTypes();
 
@@ -30,7 +25,7 @@ namespace Drafts
             _cache.Clear();
         }
 
-        static IReadOnlyList<Type> FindTypes()
+        private static IReadOnlyList<Type> FindTypes()
         {
             if (_assemblies == null) throw new Exception("Assembly not set. Call SetAssemblies first.");
             IEnumerable<Type> all = new List<Type>();
@@ -51,13 +46,18 @@ namespace Drafts
         }
 
         private static bool IsCompatible(Type type) =>
-            !type.IsAbstract && !type.IsGenericTypeDefinition && !type.IsInterface
+            !type.IsAbstract && !type.IsGenericType && !type.IsInterface
             && type.GetCustomAttribute<HideFromTypeCacheAttribute>() == null;
 
-        public static TypesGroup GetDerivedTypes(Type type)
+        public static IReadOnlyList<Type> GetDerivedTypes(Type type)
         {
             if (_cache.TryGetValue(type, out var cache)) return cache;
-            return _cache[type] = new TypesGroup(type);
+            return _cache[type] = FoundTypes.Where(type.IsAssignableFrom).ToList();
+        }
+
+        public static Type Get(Type type, string name)
+        {
+            return GetDerivedTypes(type).FirstOrDefault(t => t.Name == name);
         }
     }
 }
