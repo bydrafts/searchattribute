@@ -23,7 +23,7 @@ namespace Drafts.Editor
             if (fieldType.IsArray) fieldType = fieldType.GetElementType();
             else if (fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(List<>))
                 fieldType = fieldType.GetGenericArguments()[0];
-        
+
             if (property.propertyType != SerializedPropertyType.ManagedReference)
                 throw new Exception("Field is not a ManagedReference");
 
@@ -31,16 +31,15 @@ namespace Drafts.Editor
             var currValue = property.managedReferenceValue;
             var currType = currValue?.GetType();
 
+            var hasLabel = label != GUIContent.none && !string.IsNullOrEmpty(label.text);
             var rect = position;
-            rect = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), GUIContent.none);
             rect.height = EditorGUIUtility.singleLineHeight;
-            rect.width -= EditorGUIUtility.labelWidth;
-            rect.x += EditorGUIUtility.labelWidth;
+            if (hasLabel) rect = EditorGUI.PrefixLabel(rect, GUIUtility.GetControlID(FocusType.Passive), label);
             DrawButton(rect, property, new(currType?.Name), fieldType);
 
             if (fieldInfo.FieldType.IsArray && currType != null)
                 label.text = currType.Name;
-            
+
             if (currType == null) EditorGUI.LabelField(position, label);
             else EditorGUI.PropertyField(position, property, label, true);
 
@@ -49,17 +48,28 @@ namespace Drafts.Editor
 
         public static void DrawButton(Rect pos, SerializedProperty property, GUIContent label, Type fieldType)
         {
+            
             if (GUI.Button(pos, label))
             {
                 var tgt = property.serializedObject.targetObject;
                 var settings = new TypeSearchSettings(fieldType);
                 settings.Search(tgt, SetValue);
             }
-
+            
             void SetValue(Type type)
             {
-                property.managedReferenceValue = Activator.CreateInstance((Type)type);
-                property.serializedObject.ApplyModifiedProperties();
+                var targets = property.serializedObject.targetObjects;
+                var propertyPath = property.propertyPath;
+
+                foreach (var t in targets)
+                {
+                    var so = new SerializedObject(t);
+                    var prop = so.FindProperty(propertyPath);
+                    prop.managedReferenceValue = type == null ? null : Activator.CreateInstance(type);
+                    so.ApplyModifiedProperties();
+                }
+
+                property.serializedObject.Update();
             }
         }
     }
