@@ -2,8 +2,8 @@ using UnityEditor;
 using UnityEngine;
 
 namespace Drafts.Editor {
-    [CustomPropertyDrawer(typeof(TwoColumnsDrawer), true)]
     [CustomPropertyDrawer(typeof(TwoColumnsAttribute), true)]
+    [CustomPropertyDrawer(typeof(ITwoColumnsDrawer), true)]
     public class TwoColumnsAttributeDrawer : PropertyDrawer {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
             EditorGUI.BeginProperty(position, label, property);

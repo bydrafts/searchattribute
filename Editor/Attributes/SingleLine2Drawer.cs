@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Drafts.Editor {
     [CustomPropertyDrawer(typeof(SingleLine2Attribute), true)]
-    [CustomPropertyDrawer(typeof(SingleLine2Drawer), true)]
+    [CustomPropertyDrawer(typeof(ISingleLine2Drawer), true)]
     public class SingleLine2Drawer : PropertyDrawer {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
             label = EditorGUI.BeginProperty(position, label, property);
@@ -12,8 +12,9 @@ namespace Drafts.Editor {
             var indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
 
-            var statRect = new Rect(position.x, position.y, position.width * 0.6f, position.height);
-            var scaleRect = new Rect(position.x + position.width * 0.65f, position.y, position.width * 0.35f, position.height);
+            var w = position.width * 0.5f - 5;
+            var statRect = new Rect(position.x, position.y, w, position.height);
+            var scaleRect = new Rect(position.x + w + 10, position.y, w, position.height);
 
             var iterator = property.Copy();
             iterator.NextVisible(true);
