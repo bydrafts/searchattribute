@@ -2,17 +2,18 @@ using UnityEditor;
 using UnityEngine;
 
 namespace Drafts.Editor {
+    [CustomPropertyDrawer(typeof(TwoColumnsDrawer), true)]
     [CustomPropertyDrawer(typeof(TwoColumnsAttribute), true)]
     public class TwoColumnsAttributeDrawer : PropertyDrawer {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
             EditorGUI.BeginProperty(position, label, property);
-            
+
             position.height = EditorGUIUtility.singleLineHeight;
             property.isExpanded = EditorGUI.Foldout(position, property.isExpanded, label, true);
 
             if (property.isExpanded) {
                 EditorGUI.indentLevel++;
-                
+
                 var child = property.Copy();
                 var endProperty = child.GetEndProperty();
                 child.NextVisible(true);
@@ -34,7 +35,7 @@ namespace Drafts.Editor {
                     if (!isLeft) {
                         currentRect.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
                     }
-                    
+
                     isLeft = !isLeft;
                     if (!child.NextVisible(false)) break;
                 }

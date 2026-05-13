@@ -1,3 +1,7 @@
 using UnityEngine;
 
-public class TwoColumnsAttribute : PropertyAttribute { }
+namespace Drafts {
+    public class TwoColumnsAttribute : PropertyAttribute { }
+
+    public interface TwoColumnsDrawer { }
+}

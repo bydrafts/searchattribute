@@ -2,6 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 namespace Drafts.Editor {
+    [CustomPropertyDrawer(typeof(SingleLineDrawer), true)]
     [CustomPropertyDrawer(typeof(SingleLineAttribute), true)]
     public class SingleLineAttributeDrawer : PropertyDrawer {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {

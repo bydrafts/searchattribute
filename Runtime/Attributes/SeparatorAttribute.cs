@@ -1,3 +1,5 @@
 using UnityEngine;
 
-public class SeparatorAttribute : PropertyAttribute { }
+namespace Drafts {
+    public class SeparatorAttribute : PropertyAttribute { }
+}
