@@ -18,6 +18,9 @@ namespace Drafts
 
         public static IReadOnlyList<Type> FoundTypes => _foundTypes ??= FindTypes();
 
+        public static void SetAssemblies(params Assembly[] assemblies)
+            => SetAssemblies((IEnumerable<Assembly>)assemblies);
+
         public static void SetAssemblies(IEnumerable<Assembly> assemblies)
         {
             _assemblies = assemblies;
