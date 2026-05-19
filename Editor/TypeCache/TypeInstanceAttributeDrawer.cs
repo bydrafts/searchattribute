@@ -26,36 +26,23 @@ namespace Drafts.Editor {
             var text = fieldInfo.FieldType.IsArray ? "" : label.text + ": ";
             text += currType?.Name ?? "null";
             label.text = " ";
-            
+
             EditorGUIUtility.labelWidth *= 1.2f;
-            if (currValue == null)
-                DrawButton(position, property, fieldType, text);
-            else {
-                RemoveButton(position, property, text);
+            DrawButton(position, property, fieldType, text);
+            if (currValue != null)
                 EditorGUI.PropertyField(position, property, label, true);
-            }
             EditorGUIUtility.labelWidth /= 1.2f;
         }
 
-        private void RemoveButton(Rect pos, SerializedProperty property, string text) {
-            //var w = EditorGUIUtility.labelWidth;
-            //pos.x += fieldInfo.FieldType.IsArray ? 0 : w / 2;
-            //pos.width = fieldInfo.FieldType.IsArray ? w : w / 2;
-            pos.width = EditorGUIUtility.labelWidth;
-            pos.height = EditorGUIUtility.singleLineHeight;
-
-            if (!GUI.Button(pos, text)) return;
-            property.managedReferenceValue = null;
-            property.serializedObject.ApplyModifiedProperties();
-        }
-
         private void DrawButton(Rect pos, SerializedProperty property, Type fieldType, string text) {
-            pos.width = EditorGUIUtility.labelWidth;
+            var delta = EditorGUI.IndentedRect(pos).x - pos.x;
+            pos.width = EditorGUIUtility.labelWidth - delta;
+            pos.x += delta;
             pos.height = EditorGUIUtility.singleLineHeight;
 
             if (!GUI.Button(pos, text)) return;
             var tgt = property.serializedObject.targetObject;
-            var settings = new TypeSearchSettings(fieldType);
+            var settings = new TypeSearchSettings(fieldType, true);
             settings.Search(tgt, SetValue);
 
             void SetValue(Type type) {
