@@ -1,7 +1,7 @@
-using UnityEngine;
-using UnityEditor;
 using System;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
 
 namespace Drafts.Editor {
     [CustomPropertyDrawer(typeof(TypeInstanceAttribute))]
@@ -22,8 +22,8 @@ namespace Drafts.Editor {
 
             var currValue = property.managedReferenceValue;
             var currType = currValue?.GetType();
-
-            var text = fieldInfo.FieldType.IsArray ? "" : label.text + ": ";
+            var isArrayElement = label.text.StartsWith("Element ");
+            var text = isArrayElement ? "" : label.text + ": ";
             text += currType?.Name ?? "null";
             label.text = " ";
 

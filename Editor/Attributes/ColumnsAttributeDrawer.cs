@@ -44,7 +44,7 @@ namespace Drafts.Editor {
                 var endProperty = child.GetEndProperty();
                 child.NextVisible(true);
 
-                var columnSpacing = 10;
+                var columnSpacing = 2;
                 var currentRect = EditorGUI.IndentedRect(position);
                 currentRect.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
                 var columnWidth = (currentRect.width - columnSpacing * (Columns - 1)) / Columns;
