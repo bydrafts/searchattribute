@@ -15,14 +15,22 @@ namespace Drafts.Editor
 
         public static void Draw(Rect position, SerializedProperty property, GUIContent label, Func<ISearchSettings> getSettings, bool @lock)
         {
-            var labelRect = position;
-            labelRect.width -= 35;
-            position.width = 35;
-            position.x += labelRect.width;
+            if (position.width > 95)
+            {
+                var labelRect = position;
+                labelRect.width -= 35;
+                position.width = 35;
+                position.x += labelRect.width;
 
-            EditorGUI.BeginDisabledGroup(@lock);
-            EditorGUI.PropertyField(labelRect, property, label);
-            EditorGUI.EndDisabledGroup();
+                EditorGUI.BeginDisabledGroup(@lock);
+                EditorGUI.PropertyField(labelRect, property, label);
+                EditorGUI.EndDisabledGroup();
+            }
+            else
+            {
+                position.width -= 2;
+                position.x += 2;
+            }
 
             if (!GUI.Button(position, "Find")) return;
             var target = property.serializedObject.targetObject;

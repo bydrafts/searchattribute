@@ -1,7 +1,7 @@
-using UnityEngine;
-
-namespace Drafts {
-    public class SingleLineAttribute : PropertyAttribute { }
-
-    public interface ISingleLineDrawer { }
+namespace Drafts
+{
+    public interface ISingleLineDrawer
+    {
+        public (string n, float w)[] DrawConfig => null;
+    }
 }

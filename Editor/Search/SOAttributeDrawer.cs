@@ -68,7 +68,8 @@ namespace Drafts
 
             path = string.IsNullOrEmpty(path) ? "Assets" : Path.GetDirectoryName(path);
 
-            var fullPath = AssetDatabase.GenerateUniqueAssetPath($"{path}/{type.Name}.asset");
+            var name = $"{property.serializedObject.targetObject.name} {property.name}";
+            var fullPath = AssetDatabase.GenerateUniqueAssetPath($"{path}/{name}.asset");
             AssetDatabase.CreateAsset(instance, fullPath);
             AssetDatabase.SaveAssets();
 

@@ -43,7 +43,8 @@ namespace Drafts.Editor
             var path = AssetDatabase.GetAssetPath(property.serializedObject.targetObject);
             path = string.IsNullOrEmpty(path) ? "Assets" : Path.GetDirectoryName(path);
 
-            var fullPath = AssetDatabase.GenerateUniqueAssetPath($"{path}/{componentType.Name}.prefab");
+            var name = $"{property.serializedObject.targetObject.name} {property.name}";
+            var fullPath = AssetDatabase.GenerateUniqueAssetPath($"{path}/{name}.prefab");
             var prefab = PrefabUtility.SaveAsPrefabAsset(go, fullPath);
             UnityEngine.Object.DestroyImmediate(go);
 
