@@ -24,12 +24,10 @@ namespace Drafts
 
     public class AssetNameSearchSettings : ISearchSettings<string>
     {
-        public static Func<Type, string, IEnumerable<UnityEngine.Object>> _findAssets;
-
         public Type Type { get; }
         public string Folder { get; }
         public string Title => $"{Type.Name} in {Folder}";
-        public IEnumerable<string> GetItems(object target) => _findAssets(Type, Folder).Select(a => a.name);
+        public IEnumerable<string> GetItems(object target) => AssetSearchSettings._findAssets(Type, Folder).Select(a => a.name);
         public string GetName(string o) => o;
 
         public AssetNameSearchSettings(Type type, string folder)

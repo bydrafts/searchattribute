@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Drafts.Editor
 {
+    [CustomPropertyDrawer(typeof(SingleLineAttribute), true)]
     [CustomPropertyDrawer(typeof(ISingleLineDrawer), true)]
     public class SingleLineAttributeDrawer : PropertyDrawer
     {
@@ -16,7 +17,12 @@ namespace Drafts.Editor
             var labelWidth = EditorGUIUtility.labelWidth;
             EditorGUI.indentLevel = 0;
 
-            var config = (property.managedReferenceValue as ISingleLineDrawer)?.DrawConfig;
+            var config = attribute is SingleLineAttribute sla
+                ? sla.DrawConfig
+                : property.propertyType == SerializedPropertyType.ManagedReference
+                    ? (property.managedReferenceValue as ISingleLineDrawer)?.DrawConfig
+                    : null;
+
             if (config == null) EqualWidth(property, contentRect);
             else DrawWithConfig(property, contentRect, config);
 
