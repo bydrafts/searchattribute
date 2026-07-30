@@ -10,14 +10,6 @@ namespace Drafts.Editor
     /// </summary>
     public class SearchProvider : ScriptableObject, ISearchWindowProvider
     {
-        //static SearchProvider() => AssetSearchSettings._findAssets = FindAssets;
-        //
-        // static IEnumerable<UnityEngine.Object> FindAssets(Type type, string folder) {
-        // 	if(string.IsNullOrEmpty(folder))
-        // 		return EditorUtil.FindAssets(type);
-        // 	return EditorUtil.FindAssets(type, folder);
-        // }
-
         internal object target;
         internal ISearchSettings settings;
         public Action<object> onSelected;
@@ -55,6 +47,11 @@ namespace Drafts.Editor
         {
             onSelected(entry.userData);
             return true;
+        }
+
+        public static void Open<T>(Vector2? position, ISearchSettings settings, object target, Action<T> onSelected)
+        {
+            Create(settings,target,onSelected).OpenWindow(position);
         }
     }
 
