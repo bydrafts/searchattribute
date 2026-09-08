@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using Drafts.SaveData;
 using UnityEngine;
 
 namespace Drafts
@@ -12,7 +11,7 @@ namespace Drafts
     }
 
     [Serializable]
-    public class GuidRef<T> : IGuidRef, IBinarySave where T : Component
+    public class GuidRef<T> : IGuidRef where T : Component
     {
         private Guid? _guid;
         private T _value;
