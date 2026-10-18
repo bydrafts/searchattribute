@@ -28,26 +28,21 @@ namespace Drafts.Editor
             var sl = attr.SingleLine;
             var currValue = property.managedReferenceValue;
             var currType = currValue?.GetType();
-            var isArrayElement = label.text?.StartsWith("Element ") ?? true;
-            var text = sl || isArrayElement ? "" : label.text + ": ";
-            text += currType?.Name ?? "null";
+            var typeName = currType?.Name ?? "null";
+            var noLabel = !sl || (label.text?.StartsWith("Element ") ?? true);
+            var text = noLabel ? $"{label.text}: {typeName}" : typeName;
             label.text = " ";
 
             EditorGUIUtility.labelWidth *= attr.LabelWidthMult;
-            DrawButton(position, property, fieldType, text, sl);
+            DrawButton(position, property, fieldType, text, noLabel ? null : label);
             if (currValue != null) EditorGUI.PropertyField(position, property, label, true);
             EditorGUIUtility.labelWidth /= attr.LabelWidthMult;
         }
 
-        private static void DrawButton(Rect pos, SerializedProperty property, Type fieldType, string text, bool singleLine)
+        private static void DrawButton(Rect pos, SerializedProperty property, Type fieldType, string text, GUIContent label)
         {
-            if (!singleLine)
-            {
-                var delta = EditorGUI.IndentedRect(pos).x - pos.x;
-                pos.width = EditorGUIUtility.labelWidth - delta;
-                pos.x += delta;
-                pos.height = EditorGUIUtility.singleLineHeight;
-            }
+            pos.height = EditorGUIUtility.singleLineHeight;
+            if (label != null) pos = EditorGUI.PrefixLabel(pos, new GUIContent(label));
 
             if (!GUI.Button(pos, text)) return;
             var tgt = property.serializedObject.targetObject;
